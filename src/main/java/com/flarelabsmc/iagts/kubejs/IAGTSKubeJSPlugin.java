@@ -2,6 +2,7 @@ package com.flarelabsmc.iagts.kubejs;
 
 import com.flarelabsmc.iagts.internal.Alignment;
 import com.flarelabsmc.iagts.internal.Anchor;
+import com.flarelabsmc.iagts.kubejs.event.IAGTSJSEvents;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.latvian.mods.kubejs.KubeJSPlugin;
 import dev.latvian.mods.kubejs.script.BindingsEvent;
@@ -27,5 +28,10 @@ public class IAGTSKubeJSPlugin extends KubeJSPlugin {
         event.add("WidgetBuilder", WidgetBuilderWrapper.class);
         event.add("CubeMap", CubeMap.class);
         event.add("RenderSystem", RenderSystem.class);
+    }
+
+    @Override
+    public void registerEvents() {
+        IAGTSJSEvents.init();
     }
 }

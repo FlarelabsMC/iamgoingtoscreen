@@ -4,6 +4,8 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "${mod_id}.refmap.json",
   "mixins": [],
-  "client": [],
+  "client": [
+    "MinecraftMixin"
+  ],
   "minVersion": "0.8.5"
 }
