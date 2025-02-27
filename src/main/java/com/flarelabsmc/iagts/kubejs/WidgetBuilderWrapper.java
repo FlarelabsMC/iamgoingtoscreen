@@ -5,6 +5,7 @@ import com.flarelabsmc.iagts.api.renderable.ImageRenderable;
 import com.flarelabsmc.iagts.api.renderable.shaders.OverlayShader;
 import com.flarelabsmc.iagts.internal.Alignment;
 import com.flarelabsmc.iagts.internal.Anchor;
+import com.flarelabsmc.iagts.kubejs.button.CustomButton;
 import dev.latvian.mods.kubejs.typings.Info;
 import ladysnake.satin.api.managed.ManagedShaderEffect;
 import net.minecraft.client.gui.components.Button;
@@ -56,6 +57,11 @@ public class WidgetBuilderWrapper {
             """)
     public WidgetBuilderWrapper addNineSliceImageButton(int layer, int x, int y, int width, int height, @Nullable Component text, Consumer<Button> onPress, ResourceLocation texture, int textureWidth, int textureHeight, int textureX, int textureY, int hoverTextureX, int hoverTextureY, int uWidth, int vHeight, int sliceWidth, int sliceHeight, Anchor anchor) {
         instance.addNineSliceImageButton(layer, x, y, width, height, text, onPress, texture, textureWidth, textureHeight, textureX, textureY, hoverTextureX, hoverTextureY, uWidth, vHeight, sliceWidth, sliceHeight, anchor);
+        return this;
+    }
+
+    public WidgetBuilderWrapper addCustomButton(CustomButton button) {
+        instance.screen.addRenderableWidget(button.build());
         return this;
     }
 

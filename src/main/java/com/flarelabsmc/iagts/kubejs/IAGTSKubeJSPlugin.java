@@ -2,6 +2,7 @@ package com.flarelabsmc.iagts.kubejs;
 
 import com.flarelabsmc.iagts.internal.Alignment;
 import com.flarelabsmc.iagts.internal.Anchor;
+import com.flarelabsmc.iagts.kubejs.button.CustomButton;
 import com.flarelabsmc.iagts.kubejs.event.IAGTSJSEvents;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.latvian.mods.kubejs.KubeJSPlugin;
@@ -23,6 +24,7 @@ public class IAGTSKubeJSPlugin extends KubeJSPlugin {
     @OnlyIn(Dist.CLIENT)
     private void addClientBindings(BindingsEvent event) {
         event.add("ScreenBuilder", ScreenBuilder.class);
+        event.add("CustomButton", CustomButton.class);
         event.add("Alignment", Alignment.class);
         event.add("Anchor", Anchor.class);
         event.add("WidgetBuilder", WidgetBuilderWrapper.class);

@@ -26,7 +26,7 @@ import java.util.function.Consumer;
 
 @SuppressWarnings("unused")
 public class WidgetBuilder {
-    protected final Screen screen;
+    public final Screen screen;
     protected final LayerManager layerManager = new LayerManager();
 
     public WidgetBuilder(Screen screen) {
