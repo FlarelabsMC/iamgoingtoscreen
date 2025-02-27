@@ -3,7 +3,6 @@ package com.flarelabsmc.iagts.kubejs;
 import dev.latvian.mods.kubejs.typings.Info;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.Music;
@@ -28,7 +27,8 @@ public class ScreenBuilder {
     private Consumer<Screen> tickCallback;
     private Consumer<Screen> removedCallback;
     private Consumer<Screen> addedCallback;
-    private Consumer<RenderBackgroundCallback> renderBackgroundCallback;
+    private Consumer<RenderBackgroundCallback> renderBackgroundCallbackPre;
+    private Consumer<RenderBackgroundCallback> renderBackgroundCallbackPost;
     private Consumer<Screen> afterMouseMoveCallback;
     private Consumer<Screen> afterMouseActionCallback;
     private Consumer<Screen> afterKeyboardActionCallback;
@@ -56,8 +56,16 @@ public class ScreenBuilder {
     @Info("""
             This is called when the screen's background is being rendered. You can replace the background with a custom image, or keep it empty.
             """)
-    public ScreenBuilder onRenderBackground(Consumer<RenderBackgroundCallback> renderBackgroundCallback) {
-        this.renderBackgroundCallback = renderBackgroundCallback;
+    public ScreenBuilder onRenderBackgroundPre(Consumer<RenderBackgroundCallback> renderBackgroundCallback) {
+        this.renderBackgroundCallbackPre = renderBackgroundCallback;
+        return this;
+    }
+
+    @Info("""
+            This is called when the screen's background is being rendered. You can replace the background with a custom image, or keep it empty.
+            """)
+    public ScreenBuilder onRenderBackgroundPost(Consumer<RenderBackgroundCallback> renderBackgroundCallback) {
+        this.renderBackgroundCallbackPost = renderBackgroundCallback;
         return this;
     }
 
@@ -224,11 +232,14 @@ public class ScreenBuilder {
 
             @Override
             public void renderBackground(GuiGraphics pGuiGraphics) {
-                if (renderBackgroundCallback != null) {
-                    renderBackgroundCallback.accept(new RenderBackgroundCallback(this, pGuiGraphics));
+                if (renderBackgroundCallbackPre != null) {
+                    renderBackgroundCallbackPre.accept(new RenderBackgroundCallback(this, pGuiGraphics));
                     return;
                 }
                 super.renderBackground(pGuiGraphics);
+                if (renderBackgroundCallbackPost != null) {
+                    renderBackgroundCallbackPost.accept(new RenderBackgroundCallback(this, pGuiGraphics));
+                }
             }
 
             @Override

@@ -115,6 +115,13 @@ repositories {
         }
     }
     maven { url 'https://jitpack.io' }
+    maven {
+        name = 'ConstructLegacy'
+        url = 'https://repo.constructlegacy.ru/public'
+        content {
+            includeGroup 'com.github.dima_dencep.mods'
+        }
+    }
 }
 
 dependencies {
@@ -129,6 +136,13 @@ dependencies {
     implementation(jarJar("com.github.Fallen-Breath.conditional-mixin:conditional-mixin-forge:0.6.4")) {
         jarJar.ranged(it, "[0.6.4,)")
     }
+//    implementation(jarJar("com.github.dima_dencep.mods:satin-forge:1.20.1+1.15.0-SNAPSHOT")) {
+//        jarJar.ranged(it, "[1.20.1+1.15.0-SNAPSHOT,)")
+//    }
+
+    implementation(jarJar(fg.deobf("com.github.dima_dencep.mods:satin-forge:1.20.1+1.15.0-SNAPSHOT")) {
+        jarJar.ranged(it, "[1.15.0-SNAPSHOT,)")
+    })
 }
 
 tasks.withType(ProcessResources).configureEach {
