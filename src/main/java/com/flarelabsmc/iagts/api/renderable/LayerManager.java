@@ -41,4 +41,9 @@ public class LayerManager {
     public int getLayerCount() {
         return layers.size();
     }
+
+    public void moveRenderable(int fromLayer, int toLayer, Renderable renderable) {
+        removeRenderable(fromLayer, renderable);
+        addRenderable(toLayer, renderable);
+    }
 }

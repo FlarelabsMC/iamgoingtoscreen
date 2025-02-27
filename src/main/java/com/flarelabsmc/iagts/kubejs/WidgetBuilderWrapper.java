@@ -2,6 +2,7 @@ package com.flarelabsmc.iagts.kubejs;
 
 import com.flarelabsmc.iagts.api.WidgetBuilder;
 import com.flarelabsmc.iagts.api.renderable.ImageRenderable;
+import com.flarelabsmc.iagts.api.renderable.LayerManager;
 import com.flarelabsmc.iagts.api.renderable.shaders.OverlayShader;
 import com.flarelabsmc.iagts.internal.Alignment;
 import com.flarelabsmc.iagts.internal.Anchor;
@@ -19,6 +20,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.function.Consumer;
 
+@SuppressWarnings("unused")
 @Info("""
         A wrapper for the WidgetBuilder class, which allows for easier use of the IAGTS API in KubeJS scripts.
         It can be used to modify screens live, or to create new screens.
@@ -158,9 +160,24 @@ public class WidgetBuilderWrapper {
     }
 
     @Info("""
+            Pops all layers from the screen. Use this to clear all renderables from the screen.
+            Likely useful for moving renderables between layers.
+            """)
+    public void popLayers() {
+        instance.popLayers();
+    }
+
+    @Info("""
             Returns the number of layers.
             """)
     public int getLayerCount() {
         return instance.getLayerCount();
+    }
+
+    @Info("""
+            Returns the layer manager.
+            """)
+    public LayerManager getLayerManager() {
+        return instance.layerManager;
     }
 }

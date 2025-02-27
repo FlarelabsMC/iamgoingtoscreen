@@ -27,7 +27,7 @@ import java.util.function.Consumer;
 @SuppressWarnings("unused")
 public class WidgetBuilder {
     public final Screen screen;
-    protected final LayerManager layerManager = new LayerManager();
+    public final LayerManager layerManager = new LayerManager();
 
     public WidgetBuilder(Screen screen) {
         this.screen = screen;
@@ -72,6 +72,12 @@ public class WidgetBuilder {
         Button button = Button.builder(text != null ? text : Component.empty(), onPress::accept)
                 .bounds(anchoredX, anchoredY, width, height)
                 .build();
+        this.screen.addWidget(button);
+        this.layerManager.addRenderable(layer, button);
+        return this;
+    }
+
+    public WidgetBuilder addButton(int layer, Button button) {
         this.screen.addWidget(button);
         this.layerManager.addRenderable(layer, button);
         return this;
@@ -173,6 +179,12 @@ public class WidgetBuilder {
         this.layerManager.getLayers().entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
                 .forEach(entry -> this.screen.renderables.addAll(entry.getValue()));
+    }
+
+    public void popLayers() {
+        this.layerManager.getLayers().entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .forEach(entry -> this.screen.renderables.removeAll(entry.getValue()));
     }
 
     public List<Button> getButtons() {
